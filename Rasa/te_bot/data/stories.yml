@@ -1,0 +1,337 @@
+version: "3.1"
+
+stories:
+
+- story: happy path
+  steps:
+  - intent: greet
+  - action: action_service
+
+- story: goodbye path
+  steps:
+  - intent: goodbye
+  - action: utter_else
+
+- story: yes path
+  steps:
+  - intent: Yes
+  - action: action_service
+
+- story: no path
+  steps:
+  - intent: No
+  - action: utter_thanks
+
+- story: Human path
+  steps:
+  - intent: Human
+    entities:
+     - issue_type: "Human"
+  - slot_was_set:
+     - issue_type: "Human"
+  - action: action_talk_to_human
+  - action: utter_else
+  
+- story: Ask a different question
+  steps:
+  - intent: Different
+  - action: utter_ask_diff
+  #- action: user_freetext 
+  - action: utter_else
+
+- story: Unistalling the SF+ App path
+  steps:
+  - intent: Uninstall
+    entities:
+     - issue_type: " Uninstall"
+  - slot_was_set:
+     - issue_type: "Uninstall"
+  - action: utter_Uninstall
+  - action: utter_else
+
+#---------------PerLoan----------------------#
+
+- story: Payment Yes Path
+  steps:
+  - intent: Payment
+    entities:
+     - issue_type: "Payment"
+  - slot_was_set:
+     - issue_type: "Payment"
+  - action: utter_refresh
+  - action: utter_continue
+  - intent: Yes
+  - action: utter_Payment
+
+- story: Payment No Path
+  steps:
+  - intent: Payment
+    entities:
+     - issue_type: "Payment"
+  - slot_was_set:
+     - issue_type: "Payment"
+  - action: utter_refresh
+  - action: utter_continue
+  - intent: No
+  - action: utter_thanks
+
+- story: PerLoan payment fail path
+  steps:
+
+  - intent: PerLoan
+    entities:
+     - loan_type: "PerLoan"
+  - slot_was_set:
+     - loan_type: "PerLoan"
+  - action: utter_PerLoan
+  - action: custom_sync
+  #- intent: action1sync
+  - action: check_payment_P
+  - slot_was_set:
+      - syncstatus: "failed"
+  - action: payment_sync_form
+  - active_loop: payment_sync_form
+  - slot_was_set:
+    - requested_slot: Date
+  - slot_was_set:
+    - Date: 29/11/2022
+  - slot_was_set:
+    - requested_slot: mop
+  - slot_was_set:
+    - mop: Gpay
+  - slot_was_set:
+    - requested_slot: pid
+  - slot_was_set:
+    - pid: pid5667
+  - slot_was_set:
+    - requested_slot: amount
+  - slot_was_set:
+    - amount: 2500
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_thanks
+  - action: utter_else
+
+- story: PerLoan payment Success path
+  steps:
+
+  - intent: PerLoan
+    entities:
+     - loan_type: "PerLoan"
+  - slot_was_set:
+     - loan_type: "PerLoan"
+  - action: utter_PerLoan
+  - action: custom_sync
+  #- intent: action1sync
+  - action: check_payment_P
+  - slot_was_set:
+      - syncstatus: "success"
+  - action: utter_any_payment
+  - intent: Yes
+  - action: payment_sync_form
+  - active_loop: payment_sync_form
+  - slot_was_set:
+    - requested_slot: Date
+  - slot_was_set:
+    - Date: 29/11/2022
+  - slot_was_set:
+    - requested_slot: mop
+  - slot_was_set:
+    - mop: Gpay
+  - slot_was_set:
+    - requested_slot: pid
+  - slot_was_set:
+    - pid: pid5667
+  - slot_was_set:
+    - requested_slot: amount
+  - slot_was_set:
+    - amount: 2500
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_else
+
+- story: PerLoan payment Success path handoff 1
+  steps:
+
+  - intent: PerLoan
+    entities:
+     - loan_type: "PerLoan"
+  - slot_was_set:
+     - loan_type: "PerLoan"
+  - action: utter_PerLoan
+  - action: custom_sync
+  #- intent: action1sync
+  - action: check_payment_P
+  - slot_was_set:
+      - syncstatus: "success"
+  - action: utter_any_payment
+  - intent: No
+  - action: utter_handoff
+  - intent: Yes
+    entities:
+     - issue_type: "Human"
+  - slot_was_set:
+     - issue_type: "Human"
+  - action: action_talk_to_human
+
+
+
+- story: PerLoan payment Success path human
+  steps:
+
+  - intent: PerLoan
+    entities:
+     - loan_type: "PerLoan"
+  - slot_was_set:
+     - loan_type: "PerLoan"
+  - action: utter_PerLoan
+  - action: custom_sync
+  #- intent: action1sync
+  - action: check_payment_P
+  - slot_was_set:
+      - syncstatus: "success"
+  - action: utter_any_payment
+  - intent: No
+  - action: utter_handoff
+  - intent: Yes
+    entities:
+     - issue_type: "Human"
+  - slot_was_set:
+     - issue_type: "Human"
+  - action: action_talk_to_human
+
+#--------------------DevLoan-------------------------#
+
+- story: DevLoan payment fail path
+  steps:
+
+  - intent: DevLoan
+    entities:
+     - loan_type: "DevLoan"
+  - slot_was_set:
+     - loan_type: "DevLoan"
+  - action: utter_DevLoan
+  - action: custom_sync
+  #- intent: action1sync
+  - action: check_payment_D
+  - slot_was_set:
+      - syncstatus: "failed"
+  - action: payment_sync_form
+  - active_loop: payment_sync_form
+  - slot_was_set:
+    - requested_slot: Date
+  - slot_was_set:
+    - Date: 29/11/2022
+  - slot_was_set:
+    - requested_slot: mop
+  - slot_was_set:
+    - mop: Gpay
+  - slot_was_set:
+    - requested_slot: pid
+  - slot_was_set:
+    - pid: pid5667
+  - slot_was_set:
+    - requested_slot: amount
+  - slot_was_set:
+    - amount: 2500
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_thanks
+  - action: utter_else
+
+- story: DevLoan payment Success path
+  steps:
+
+  - intent: DevLoan
+    entities:
+     - loan_type: "DevLoan"
+  - slot_was_set:
+     - loan_type: "DevLoan"
+  - action: utter_DevLoan
+  - action: custom_sync
+  #- intent: action1sync
+  - action: check_payment_D
+  - slot_was_set:
+      - syncstatus: "success"
+  - action: utter_any_payment
+  - intent: Yes
+  - action: payment_sync_form
+  - active_loop: payment_sync_form
+  - slot_was_set:
+    - requested_slot: Date
+  - slot_was_set:
+    - Date: 29/11/2022
+  - slot_was_set:
+    - requested_slot: mop
+  - slot_was_set:
+    - mop: Gpay
+  - slot_was_set:
+    - requested_slot: pid
+  - slot_was_set:
+    - pid: pid5667
+  - slot_was_set:
+    - requested_slot: amount
+  - slot_was_set:
+    - amount: 2500
+  - slot_was_set:
+    - requested_slot: null
+  - active_loop: null
+  - action: utter_else
+
+- story: DevLoan payment Success path handoff 1
+  steps:
+
+  - intent: DevLoan
+    entities:
+     - loan_type: "DevLoan"
+  - slot_was_set:
+     - loan_type: "DevLoan"
+  - action: utter_DevLoan
+  - action: custom_sync
+  #- intent: action1sync
+  - action: check_payment_D
+  - slot_was_set:
+      - syncstatus: "success"
+  - action: utter_any_payment
+  - intent: No
+  - action: utter_handoff
+  - intent: Yes
+    entities:
+     - issue_type: "Human"
+  - slot_was_set:
+     - issue_type: "Human"
+  - action: action_talk_to_human
+
+
+
+- story: DevLoan payment Success path human
+  steps:
+  
+  - intent: DevLoan  
+    entities:
+     - loan_type: "DevLoan"
+  - slot_was_set:
+     - loan_type: "DevLoan"
+  - action: utter_DevLoan
+  - action: custom_sync
+  #- intent: action1sync
+  - action: check_payment_D
+  - slot_was_set:
+      - syncstatus: "success"
+  - action: utter_any_payment
+  - intent: No
+  - action: utter_handoff
+  - intent: Yes
+    entities:
+     - issue_type: "Human"
+  - slot_was_set:
+     - issue_type: "Human"
+  - action: action_talk_to_human
+
+
+
+
+#-------------------------------------------#

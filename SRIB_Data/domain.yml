@@ -1,0 +1,672 @@
+version: '2.0'
+config:
+  store_entities_as_slots: true
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: false
+intents:
+- greet:
+    use_entities: true
+- goodbye:
+    use_entities: true
+- Payment:
+    use_entities: true
+- Additional:
+    use_entities: true
+
+- Human:
+    use_entities: true
+
+- Extra:
+    use_entities: true
+- Uninstall:
+    use_entities: true
+- Locked:
+    use_entities: true
+- Emi:
+    use_entities: true
+- Different:
+    use_entities: true
+- PerLoan:
+    use_entities: true
+- DevLoan:
+    use_entities: true
+- formstatus: 
+    use_entities: true
+- Yes:
+    use_entities: true
+- No:
+    use_entities: true
+- Date:
+    use_entities: true
+- SF:
+    use_entities: true
+- Gpay:
+    use_entities: true
+- Paytm:
+    use_entities: true
+- Phonepe:
+    use_entities: true
+- Airtel:
+    use_entities: true
+- UPI:
+    use_entities: true
+- PID:
+    use_entities: true
+- amount:
+    use_entities: true
+- Bounce: 
+    use_entities: true
+- out_of_scope:
+    use_entities: true
+- charge_review_date:
+    use_entities: true
+- charge_review_amount:
+    use_entities: true
+#- DeviceLoan:
+#    use_entities: true
+#- PersonalLoan:
+#    use_entities: true
+- EMIpayment:
+    use_entities: true
+- Nachmandate:
+    use_entities: true
+- OtherMethod:
+    use_entities: true
+- Yes_review:
+    use_entities: true
+- action1sync:
+    use_entities: true
+- closeSession:
+    use_entities: true
+- AddTicket:
+    use_entities: true
+
+- Closed:
+    use_entities: true
+- Moretime:
+    use_entities: true
+- Settle:
+    use_entities: true
+- Refund:
+    use_entities: true
+- bankformstatus:
+    use_entities: true
+- Locksuccess:
+    use_entities: true
+- Lockfailed:
+    use_entities: true
+
+forms:
+  payment_sync_form:
+    Date:
+    - type: from_text
+    mop:
+    - type: from_text
+    pid:
+    - type: from_text
+    amount:
+    - type: from_text
+
+  bank_details_form:
+    IFSCcode:
+    - type: from_text
+    name:
+    - type: from_text
+    accno:
+    - type: from_text
+
+
+entities:
+- issue_type
+- loan_type
+- Date
+- mop
+- pid
+- Diff_title
+- CRD
+- CRA
+- amount
+- formstatus
+- bankformstatus
+- lock_status
+- bank
+- accNo
+- ifsc
+- accHoldername
+
+
+slots:
+  Diff_title:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+
+  issue_type:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  Date:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  mop:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+
+  pid:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+
+  amount:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+
+  id:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: 1
+    auto_fill: true
+    influence_conversation: true
+
+  first_name:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+
+  last_name:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+
+  new_user:
+    type: bool
+    initial_value: true
+    auto_fill: true
+    influence_conversation: true
+
+  CRA:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+
+  CRD:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+
+  loan_type:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+
+  dev_model:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+  per_amount:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+    
+  syncstatus:
+    type: categorical
+    values:
+      - success
+      - failed
+      - nochange
+
+  formstatus:
+    type: categorical
+    values:
+      - success
+  
+  bankformstatus:
+    type: categorical
+    values:
+      - success
+
+  lockstatus: 
+    type: categorical
+    values: 
+      - success
+      - failed
+
+  bank:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+
+  accNo:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+
+  ifsc:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+
+  branch:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+
+  accHoldername:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+    
+
+  is_DOP_valid:
+    type: bool
+    initial_value: false
+    # auto_fill: true
+    # influence_conversation: true
+  handoff_active:
+    type: bool
+    initial_value: false
+  
+  add_ticket_status:
+    type: categorical
+    values:
+      - success
+      - failed
+      - nochange
+
+  personal_loan_id:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+
+  device_loan_id:
+    type: rasa.shared.core.slots.TextSlot
+    initial_value: null
+    auto_fill: true
+    influence_conversation: true
+
+
+
+
+
+
+responses:
+  utter_greet:
+  - text: Hello! I am Samsung Finance+ assistant and I am here to help.
+  utter_Payment:
+  - buttons:
+    - payload: /PerLoan{{"loan_type":"PerLoan"}}
+      title: Personal loan
+    - payload: /DevLoan{{"loan_type":"DevLoan"}}
+      title: Device Loan
+    text: Please Select the loan for which payment is not updated
+
+  utter_Bounce:
+  - buttons:
+    - payload: /PerLoan{{"loan_type":"PerLoan"}}
+      title: Personal loan
+    - payload: /DevLoan{{"loan_type":"DevLoan"}}
+      title: Device Loan
+    text: Please select the loan for which the charges need to be reviewed.
+
+
+  utter_charges_reviewed_amount:
+  #- text: Please enter the amount of the charge for review (in Rupees)
+  - text: Thank you . Please wait while we check the reason for charge
+
+  utter_charges_reviewed_date:
+  - text: Please enter the date of the charge for review (dd-mm-yyyy)
+
+  utter_confirm_charge_review:
+  - text: Your charges are reviewed for the amount {CRA} paid on {CRD}
+
+  utter_y_charges_r_incorrect:
+  - buttons: 
+    - payload: /Nachmandate
+      title: Payment through Auto-debit (NACH mandate) was successful.
+    - payload: /OtherMethod
+      title: Made timely / advance payment through other method.
+    - payload: /Different
+      title: My issue is not listed.
+    text: Let us know why you think the charges are incorrect.
+
+
+  # utter_applied:
+  # - buttons:
+  #   - payload: /Payment{{"issue_type":"Payment"}}
+  #     title: Made advance EMI payment
+  #   - payload: /Notdeducted
+  #     title: Money was not deducted from bank
+  #   - payload: /Nachmandate
+  #     title: Nach mandate was not bounced
+  #   - payload: /No
+  #     title: NO, i don't want to review charges
+  #   text: Charges are applied as per policy.Please select the reason for review if you still want to review them.
+
+  utter_yes_review:
+  - text: Please reach out to customer support at 9876543210
+
+  utter_ask_review:
+  - buttons:
+    - payload: /Payment{{"issue_type":"Payment"}}
+      title: Yes
+    - payload: /No
+      title: No
+    text: Do you still want to request for a review?
+
+  utter_proceed_extra:
+  - buttons: 
+    - payload: /Settle
+      title: Settle extra amount paid in next month's EMI
+    - payload: /Refund
+      title: Initiate refund request
+    text: Let us know how you want to proceed
+  
+  utter_charges_refund:
+  - text: You have made an additional Charges payment. Please confirm the details for refund
+
+  utter_refund_process:
+  - text: Thank you. We will process your refund and update the same within next 48 hours.
+
+  utter_Emi_updated:
+  - text: You have made an additional EMI and it has been updated against the EMI for May. You don't need to make EMI payment towards May.
+
+  utter_Emi_refund:
+  - buttons:
+    - payload: /Yes
+      title: Yes
+    - payload: /No
+      title: No
+    text: You have made an additional EMI payment. Please confirm you want this amount to be refunded to your registered account
+
+  utter_cancelled_cheque:
+  - buttons:
+    - payload: /Yes
+      title: Yes
+    - payload: /No
+      title: No
+    text: You have made an additional EMI payment. You haven't registered your bank account with DMI Finance yet. You need to upload an image of the cancelled cheque for the account, in which you want to receive the refund. Please confirm whether you want to proceed with refund request?
+
+  utter_ask_acc_details:
+  - text: Thank You. Now share your bank details where you want to receive the refund. 
+
+  utter_confirm_acc:
+  - text: Thank you. Please confirm the below account details are correct.
+
+  utter_Uninstall:
+  - text: As per the Samsung Finance plus policy,if you have an ongoing personal loan or a device loan ,you won't be able to uninstall finance plus application.
+  utter_payment_status:
+  - text: Please wait while we check latest payment details for your loan…
+  utter_loans_status:
+  - text: Please wait while we check latest status of your loans…
+  utter_Uninstall_later:
+  - text: Once your payment is updated, your loan will be closed and you will be able to remove the application
+  utter_Locked:
+  - text: Please wait while we check the status of your loan
+  utter_ask_Diff_title:
+  - text: Describe your Problem?
+  utter_PerLoan:
+  - text: Checking the latest payment for your loan…
+  utter_DevLoan:
+  - text: Checking the latest payment for your loan…
+  utter_refresh:
+  - text: Click Refresh button on home screen to update the latest payment status. Auto debit payments might take up to 72 hrs to reflect in the app. 
+  utter_refresh_extra:
+  - text: Extra payments are usually settled with the next month's EMI. Click Refresh button on home screen to see the latest payment status.
+  utter_share_payment_details:
+  - text: Please share the payment details so that we can help you with the issue.
+  utter_share_extra_payment_details_settle:
+  - text: Please share the details of your extra payment to settle it in next month's EMI.
+  utter_share_extra_payment_details_refund:
+  - text: Please share the details of your extra payment to raise a refund request.
+  utter_details_locked:
+  - text: Please wait while we check the details.
+  utter_check_charges:
+  - text: Please wait while we check the charges for your loan…
+  
+  utter_agent_joins:
+  - text: You are now chatting with Samsung Finance+ assistant.
+  utter_continue:
+  - buttons:
+    - payload: /Yes
+      title: Yes
+    - payload: /No
+      title: No, end chat
+    text: Do you still want to continue?
+  utter_continue_extra:
+  - buttons:
+    - payload: /Yes
+      title: Yes
+    - payload: /No
+      title: No, end chat
+    text: Do you still want to continue?
+
+
+  utter_proceed_uninstall:
+  - buttons:
+    - payload: /Payment
+      title: I have made the payment. It is not updated.
+    - payload: /No
+      title: End Chat.
+    text: Let us know how you want to proceed.
+
+  utter_proceed_locked:
+  - buttons:
+    - payload: /Payment
+      title: I have made the payment. It is not updated
+    - payload: /Moretime
+      title: I need more time to make the payment
+    - payload: /No
+      title: End chat
+    text: Please select how you want to proceed
+  
+  utter_else:
+  - buttons:
+    - payload: /Yes
+      title: Yes
+    - payload: /No
+      title: No
+    text: Anything else I can do for you
+  utter_Bye:
+  - text:  Sorry we couldn't help you today. Thank you for contacting Samsung Finance+. 
+  utter_thanks: 
+  - text: Thank you for contacting Samsung Finance+. 
+  utter_Emi:
+  - text: Please contact DMI finance support helpline of 9876543210 and request for more time to make the payment. Based on the nature of your request they may be able to provide you more time.
+  utter_locked_else:
+  - buttons:
+    - payload: /Payment{{"issue_type":"Payment"}}
+      title: My Payment is not updated
+    - payload: /Moretime
+      title: Need more time to pay the emi
+    - payload: /No
+      title: No
+    text: Any thing else I can do for you?
+
+  utter_phone_unlocked:
+  - text: One additional EMI payment has been updated. Your next payment due date is 5th May 2021. Your phone is unlocked.
+
+  utter_request_time:
+  - text: Please contact DMI Finance support helpline at 9876543210 and request for more time to make the payment. Based on the nature of your request, they may be able to provide you more time. Please try to make EMI payment as soon as possible.
+  
+  utter_DOP:
+  - text: Please add the Date of Payment(dd-mm-yyyy).
+  utter_confirm:
+  - text: Your payment will be checked for the {Date}
+  utter_thank:
+  - text: Thank You. We will check your payment status and update the same within next 48 hours.
+  utter_updated:
+    - text: Thank You. Your payment is updated.
+  utter_PID:
+  - text: Please share the payment id (pidxxxx).
+  utter_cmop:
+  - text: Your mode of payment is {mop}
+  utter_cpid:
+  - text: Your Payment id is {pid}
+  utter_id:
+  - condition:
+      - type: slot
+        name: new_user
+        value: true
+    text: Your id is {id}.
+  - condition:
+      - type: slot
+        name: new_user
+        value: false
+    text: You are not a registered user
+
+  utter_out_of_scope:
+  - text: Sorry I didn't get what you said. Please rephrase what you said or contact our customer care .
+
+  utter_ask_diff:
+  - text: Describe your issue .
+
+  utter_describe:
+  - text: Please wait while we connect you to an agent.
+
+  utter_describe_issue: 
+  - text: Please tell us about the issue while we connect you to an agent
+
+  utter_agent:
+  - text: Got it!The next available agent will join you shortly.
+
+  utter_something_else:
+    - buttons:
+      - payload: /Closed
+        title: Yes, Loan is Closed but payment not updated.
+      - payload: /Different
+        title: Yes, Other issue
+      - payload: /No
+        title: No
+      text: Anything Else i can do for you?
+
+  # utter_form_button:
+  #   - buttons:
+  #     - payload: /Form
+  #       title: Enter payment details
+  #     text: click!
+  # utter_ask_mop:
+  # - buttons:
+  #   - payload: /SF{{"mop":"SF"}}
+  #     title: Samsung Finance
+  #   - payload: /Gpay{{"mop":"GPAY"}}
+  #     title: Gpay
+  #   - payload: /Paytm{{"mop":"PAYTM"}}
+  #     title: Paytm
+  #   - payload: /Phonepe{{"mop":"PHONEPE"}}
+  #     title: Phonepe
+  #   - payload: /Airtel{{"mop":"AIRTEL_MONEY"}}
+  #     title: Airtel
+  #   - payload: /UPI{{"mop":"NEFT_IMPS_UPI_CASH_VIRTUAL_ACCOUNT"}}
+  #     title: UPI/Virtual Account
+  #   text: Select mode of payment
+
+  utter_addTicket_handoff:
+  - buttons:
+    - payload: /AddTicket{{"issue_type":"AddTicket"}}
+      title: Raise a ticket- You will get a response within 48hrs.
+    - payload: /Human{{"issue_type":"Human"}}
+      title: Talk to an agent- Waiting time 1min(s).
+    text: Thank you. Please select how you want to proceed.
+
+  utter_handoff:
+  - buttons:
+    - payload: /Human{{"issue_type":"Human"}}
+      title: Yes, connect to agent
+    - payload: /No
+      title: No, close the chat
+    text: Do you wish to connect to an agent?
+
+
+  utter_any_payment:
+  - buttons: 
+    - payload: /Yes
+      title: Yes, I made a new payment
+    - payload: /No
+      title: No
+    text: Did you make any new payment?
+
+  utter_payment_status_emi:
+  - buttons:
+    - payload: /Yes
+      title: Yes
+    - payload: /No
+      title: No
+    text: Unable to find any new payments. Have you made payment towards EMI due on 06/05/2021?
+
+actions:
+- action_service
+- check_lock
+- check_lock_status
+- check_payment_D
+- check_payment_P
+#- action_Diff_submit
+- check_loan_status
+- action_session_start
+#- action_id
+- fetch_id
+- check_bounce_charge
+- action_Notdeducted
+- action_nachmandate
+- custom_sync
+- custom_DOB
+- user_freetext
+- custom_pid
+- custom_validate_DOP
+- check_slot_DOP
+- action_talk_to_human
+- action_resume_conversation
+# - action_ask_Date
+# - action_ask_pid
+# - action_ask_amount
+- action_utter_Different
+- action_add_ticket
+- action_current_loan
+- action_current_loan_additional
+- action_current_loan_diffissue
+- check_reason_for_charge
+- action_current_loan_extra
+- action_ask_ifsc
+- action_ask_name
+- action_ask_accno
+- action_confirm_bank_details
+- check_loan_status_emi
+- action_payment_details
+- action_bank_details
+- action_form_button
+- action_bank_form_button
+- action_slot_set
+- show_payment_overdue
+- check_additional_charge
+- action_refresh
+
+
+
+
+#forms:
+#  Diff_form:
+#    Diff_title:
+#      - type: from_text
+#        entity: Diff_title
+e2e_actions: []

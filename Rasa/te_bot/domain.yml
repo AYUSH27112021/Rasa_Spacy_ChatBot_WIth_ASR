@@ -1,0 +1,238 @@
+version: '3.1'
+intents:
+  - greet
+  - goodbye
+
+  - Payment
+  # - Bounce
+  - Extra
+  - Uninstall
+  - Locked
+  - Different
+  - Emi
+  - Human
+
+  - action1sync
+
+  - PerLoan
+  - DevLoan
+
+  - Date
+  - amount
+  - PID
+  - SF
+  - Paytm
+  - Gpay
+  - Phonepe
+  - Airtel
+  - UPI
+  - AddTicket
+
+  - Yes
+  - No
+
+forms:
+  payment_sync_form:
+    required_slots:
+    - Date
+    - mop
+    - pid
+    - amount
+
+entities:
+- issue_type
+- loan_type
+- Date
+- mop
+- pid
+- amount
+
+
+slots:
+
+  issue_type:
+    type: rasa.shared.core.slots.TextSlot
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: issue_type
+
+  loan_type:
+    type: rasa.shared.core.slots.TextSlot
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: loan_type
+
+  Date:
+    type: rasa.shared.core.slots.TextSlot
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: Date
+      conditions:
+      - active_loop: payment_sync_form
+
+  mop:
+    type: rasa.shared.core.slots.TextSlot
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: mop
+      conditions:
+      - active_loop: payment_sync_form
+
+  pid:
+    type: rasa.shared.core.slots.TextSlot
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: pid
+      conditions:
+      - active_loop: payment_sync_form
+
+  amount:
+    type: rasa.shared.core.slots.TextSlot
+    influence_conversation: true
+    mappings:
+    - type: from_entity
+      entity: amount
+      conditions:
+      - active_loop: payment_sync_form
+
+  syncstatus:
+    type: categorical
+    values:
+      - success
+      - failed
+      - nochange
+    mappings:
+    - type: custom
+
+  handoff_active:
+    type: bool
+    initial_value: false
+    mappings:
+    - type: custom 
+
+responses:
+  
+  utter_Payment:
+  - text: దయచేసి చెల్లింపు అప్‌డేట్ చేయని రుణాన్ని ఎంచుకోండి
+    buttons:
+    - title: పర్‌లోన్
+      payload: '/PerLoan{{"loan_type": "PerLoan"}}'
+    - title: డెవ్‌లోన్
+      payload: '/DevLoan{{"loan_type": "DevLoan"}}'
+
+  utter_else:
+  - buttons:
+    - payload: /Yes
+      title: అవును
+    - payload: /No
+      title: లేదు
+    text: మీ కోసం నేను ఇంకా ఏమైనా చేయగలను
+
+  utter_PerLoan:
+  - text: మీ పర్‌లోన్ కోసం తాజా చెల్లింపును తనిఖీ చేస్తోంది…
+
+  utter_DevLoan:
+  - text: మీ డెవ్‌లోన్ కోసం తాజా చెల్లింపును తనిఖీ చేస్తోంది…
+
+  utter_thank:
+  - text: ధన్యవాదాలు. మేము మీ చెల్లింపు స్థితిని తనిఖీ చేస్తాము మరియు తదుపరి 48 గంటలలోపు అదే అప్‌డేట్ చేస్తాము.
+
+  utter_thanks: 
+  - text: సామ్సంగ్ ఫైనాంస్+ని సంప్రదించినందుకు ధన్యవాదాలు.
+  
+  utter_ask_mop:
+  - buttons:
+    - payload: /SF{{"mop":"SF"}}
+      title: శామ్సంగ్ ఫైనాన్స్
+    - payload: /Gpay{{"mop":"GPAY"}}
+      title: జీపే
+    - payload: /Paytm{{"mop":"PAYTM"}}
+      title: పేటీయం
+    - payload: /Phonepe{{"mop":"PHONEPE"}}
+      title: ఫోన్పే
+    - payload: /Airtel{{"mop":"AIRTEL_MONEY"}}
+      title: ఎయిర్‌టెల్
+    - payload: /UPI{{"mop":"NEFT_IMPS_UPI_CASH_VIRTUAL_ACCOUNT"}}
+      title: యుపిఐ/వర్చువల్ ఖాతా
+    text: చెల్లింపు విధానాన్ని ఎంచుకోండి
+
+  utter_ask_diff:
+  - text: మీ సమస్య ని వర్ణించడి.
+  
+  utter_Uninstall:
+  - text: శామ్‌సంగ్ ఫైనాన్స్ ప్లస్ పాలసీ ప్రకారం, మీరు కొనసాగుతున్న పర్సనల్ లోన్ లేదా డివైస్ లోన్ కలిగి ఉంటే, మీరు ఫైనాన్స్ ప్లస్ అప్లికేషన్‌ను అన్‌ఇన్‌స్టాల్ చేయలేరు.
+  
+  utter_any_payment:
+  - buttons: 
+    - payload: /Yes
+      title: అవును, నేను కొత్త చెల్లింపు చేసాను
+    - payload: /No
+      title: No
+    text: మీరు ఏవైనా కొత్త చెల్లింపులు చేసారా?
+
+  utter_addTicket_handoff:
+  - buttons:
+    - payload: /AddTicket{{"issue_type":"AddTicket"}}
+      title: టిక్కెట్‌ను పెంచండి- మీకు 48 గంటల్లో ప్రతిస్పందన వస్తుంది.
+    - payload: /Human{{"issue_type":"Human"}}
+      title: ఏజెంట్‌తో మాట్లాడండి- నిరీక్షణ సమయం 1 నిమిషం(లు).
+    text: ధన్యవాదాలు. దయచేసి మీరు ఎలా కొనసాగించాలనుకుంటున్నారో ఎంచుకోండి.
+
+  utter_agent:
+  - text: అందుబాటులో ఉన్న తదుపరి ఏజెంట్ త్వరలో మీతో చేరతారు.
+
+  utter_handoff:
+  - buttons:
+    - payload: /Human{{"issue_type":"Human"}}
+      title: అవును, ఏజెంట్‌తో కనెక్ట్ అవ్వండి
+    - payload: /No
+      title: లేదు, చాట్‌ని మూసివేయండి
+    text: మీరు ఏజెంట్‌తో కనెక్ట్ అవ్వాలనుకుంటున్నారా?
+
+  utter_refresh:
+  - text: తాజా చెల్లింపు స్థితిని అప్‌డేట్ చేయడానికి హోమ్ స్క్రీన్‌పై రిఫ్రెష్ బటన్‌ను క్లిక్ చేయండి. ఆటో డెబిట్ చెల్లింపులు యాప్‌లో ప్రతిబింబించడానికి గరిష్టంగా 72 గంటల సమయం పట్టవచ్చు.
+
+  utter_continue:
+  - buttons:
+    - payload: /Yes
+      title: అవును
+    - payload: /No
+      title: లేదు, చాట్‌ని మూసివేయండి
+    text: మీరు ఇంకా కొనసాగించాలనుకుంటున్నారా?
+ 
+actions:
+
+- action_service
+- custom_sync
+
+- check_payment_P
+- check_payment_D
+
+- action_ask_Date
+- utter_ask_mop
+- action_ask_pid
+- action_ask_amount
+
+#- user_freetext
+- action_talk_to_human
+
+- utter_Uninstall
+- utter_ask_diff
+- utter_thanks
+- utter_DevLoan
+- utter_PerLoan
+- utter_else
+- utter_Payment
+
+- utter_addTicket_handoff
+- utter_any_payment
+- utter_handoff
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true

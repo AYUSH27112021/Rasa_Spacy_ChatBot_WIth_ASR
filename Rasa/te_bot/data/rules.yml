@@ -1,0 +1,14 @@
+version: "3.1"
+
+rules:
+
+- rule: Say goodbye anytime the user says goodbye
+  steps:
+  - intent: goodbye
+  - action: utter_else
+
+# - rule: Connect to an agent if requested
+#   steps:
+#   - intent: Human
+#   - action: action_talk_to_human
+#   - action: utter_else
