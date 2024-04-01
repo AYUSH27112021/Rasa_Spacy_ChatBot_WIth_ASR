@@ -1,5 +1,4 @@
-# CITB_FP12CITB_AI_NLU_ASR_Telugu_NLU_and_ASR_model_for_Rasa_using_Spacy_Fast_Text_Jarvis
-SRIB-PRISM Program
+# RASA-Spacy Chatbot With ASR
 ## TELUGU RASA
 ### Installation of Telugu Spacy model
 ```
