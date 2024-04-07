@@ -6,5 +6,6 @@ After ensuring Dictionary structure
 ```
 pip install spacy_pipeline-0.0.0.tar.gz
 ```
+**_NOTE:_** The pipeline is a larger file ~approx 5GB,cant be uploaded using git lfs too
 
 **_NOTE:_**  use the **test.py** to ensure the correct installation of this pipeline
